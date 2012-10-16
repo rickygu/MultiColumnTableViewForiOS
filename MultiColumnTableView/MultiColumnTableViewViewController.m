@@ -107,16 +107,9 @@
             
             NSMutableArray *rowArray = [NSMutableArray arrayWithCapacity:numberOfColumns];
             for (int j = 0; j < numberOfColumns; j++) {
-//                int d = rand() % 100;
+                int d = rand() % 100;
                 
-                NSMutableString *text = [NSMutableString stringWithFormat:@""];
-//                if (d < 66) {
-//                    [text appendFormat:@"\nsecond line"];
-//                }
-//                
-//                if (d < 33) {
-//                    [text appendFormat:@"\nthird line"];
-//                }
+                NSMutableString *text = [NSMutableString stringWithFormat:@"clear"];
                 
                 [rowArray addObject:text];
             }
@@ -181,7 +174,12 @@
 
 - (void)tableView:(EWMultiColumnTableView *)tableView setContentForCell:(UIView *)cell indexPath:(NSIndexPath *)indexPath column:(NSInteger)col{
     UILabel *l = (UILabel *)cell;
-    l.text = [[[data objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectAtIndex:col];
+    
+    NSString *text = [[[data objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectAtIndex:col];
+    if ([text isEqualToString:@"1"]) {
+        l.backgroundColor = [UIColor blueColor];
+        NSLog(@"blue");
+    }
     
     CGRect f = l.frame;
     f.size.width = [self tableView:tableView widthForColumn:col];
@@ -196,7 +194,7 @@
     [l addGestureRecognizer:recognizer];
     
     
-    [l sizeToFit];
+    //[l sizeToFit];
 }
 
 - (CGFloat)tableView:(EWMultiColumnTableView *)tableView heightForCellAtIndexPath:(NSIndexPath *)indexPath column:(NSInteger)col
@@ -333,6 +331,18 @@
 {
     
     NSLog(@"change cell color here?");
+    UILabel *cell = (UILabel*) recognizer.view;
+    
+    if (cell.backgroundColor == [UIColor redColor]) {
+        cell.backgroundColor = [UIColor blueColor];
+    }
+    else if (cell.backgroundColor == [UIColor blueColor]){
+        cell.backgroundColor = [UIColor clearColor];
+    }
+    else{
+        cell.backgroundColor = [UIColor redColor];
+    }
+    
 //    int col = [recognizer.view tag];
 //    for (NSMutableArray *array in sectionHeaderData) {
 //        [array removeObjectAtIndex:col];
