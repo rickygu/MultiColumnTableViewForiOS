@@ -28,7 +28,7 @@
 
 @interface MultiColumnTableViewViewController()
 
-- (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer;
+- (void)handleTap:(UITapGestureRecognizer *)recognizer;
 
 @end
 
@@ -71,11 +71,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    numberOfColumns = 5;
-    numberOfSections = 5;
+    numberOfColumns = 10;
+    numberOfSections = 1;
     
-    int sectionDistro[] = {5, 7, 4, 9, 2};
-    colWidth = 240.0f;
+    int sectionDistro[] = {30, 7, 4};
+    colWidth = 92;
     
     data = [[NSMutableArray alloc] initWithCapacity:numberOfSections * 5];
     sectionHeaderData = [[NSMutableArray alloc] initWithCapacity:numberOfSections];
@@ -83,40 +83,40 @@
     for (int i = 0; i < numberOfSections; i++) {
         
         int rows = sectionDistro[i];
-        NSMutableArray *a = [NSMutableArray arrayWithCapacity:numberOfColumns];
-        for (int j = 0; j < numberOfColumns; j++) {
-            
-            int d = rand() % 100;
-            
-            NSMutableString *text = [NSMutableString stringWithFormat:@"S %d C %d", i, j];
-            if (d < 66) {
-                [text appendFormat:@"\nsecond line"];
-            }
-            
-            if (d < 33) {
-                [text appendFormat:@"\nthird line"];
-            }
-            
-            
-            [a addObject:text];
-        }
-        [sectionHeaderData addObject:a];
+//        NSMutableArray *a = [NSMutableArray arrayWithCapacity:numberOfColumns];
+//        for (int j = 0; j < numberOfColumns; j++) {
+//            
+//            int d = rand() % 100;
+//            
+//            NSMutableString *text = [NSMutableString stringWithFormat:@""];
+//            if (d < 66) {
+//                [text appendFormat:@"\nsecond line"];
+//            }
+//            
+//            if (d < 33) {
+//                [text appendFormat:@"\nthird line"];
+//            }
+//            
+//            
+//            [a addObject:text];
+//        }
+//        [sectionHeaderData addObject:a];
 
         NSMutableArray *sectionArray = [NSMutableArray arrayWithCapacity:10];
         for (int k = 0; k < rows; k++) {
             
             NSMutableArray *rowArray = [NSMutableArray arrayWithCapacity:numberOfColumns];
             for (int j = 0; j < numberOfColumns; j++) {
-                int d = rand() % 100;
+//                int d = rand() % 100;
                 
-                NSMutableString *text = [NSMutableString stringWithFormat:@"(%d, %d, %d)", i, k, j];
-                if (d < 66) {
-                    [text appendFormat:@"\nsecond line"];
-                }
-                
-                if (d < 33) {
-                    [text appendFormat:@"\nthird line"];
-                }
+                NSMutableString *text = [NSMutableString stringWithFormat:@""];
+//                if (d < 66) {
+//                    [text appendFormat:@"\nsecond line"];
+//                }
+//                
+//                if (d < 33) {
+//                    [text appendFormat:@"\nthird line"];
+//                }
                 
                 [rowArray addObject:text];
             }
@@ -129,7 +129,7 @@
     
     
     tblView = [[EWMultiColumnTableView alloc] initWithFrame:CGRectInset(self.view.bounds, 5.0f, 5.0f)];
-    tblView.sectionHeaderEnabled = YES;
+    tblView.sectionHeaderEnabled = NO;
 //    tblView.cellWidth = 100.0f;
 //    tblView.boldSeperatorLineColor = [UIColor blueColor];
 //    tblView.normalSeperatorLineColor = [UIColor blueColor];
@@ -187,6 +187,15 @@
     f.size.width = [self tableView:tableView widthForColumn:col];
     l.frame = f;
     
+    //trying to make a callback when cell is tapped, and change this cell's color
+    l.userInteractionEnabled = YES;
+    
+    l.tag = col;
+    UITapGestureRecognizer *recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)] autorelease];
+    recognizer.numberOfTapsRequired = 1;
+    [l addGestureRecognizer:recognizer];
+    
+    
     [l sizeToFit];
 }
 
@@ -219,7 +228,7 @@
 - (void)tableView:(EWMultiColumnTableView *)tableView setContentForSectionHeaderCell:(UIView *)cell section:(NSInteger)section column:(NSInteger)col
 {
     UILabel *l = (UILabel *)cell;
-    l.text = [NSString stringWithFormat:@"S %d C %d", section, col];
+    l.text = [NSString stringWithFormat:@""];
 
     CGRect f = l.frame;
     f.size.width = [self tableView:tableView widthForColumn:col];
@@ -237,13 +246,14 @@
 
 - (UIView *)tableView:(EWMultiColumnTableView *)tableView headerCellForIndexPath:(NSIndexPath *)indexPath
 {
-    return [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 100.0f, 40.0f)] autorelease];
+    return [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 92, 40.0f)] autorelease];
 }
 
 - (void)tableView:(EWMultiColumnTableView *)tableView setContentForHeaderCell:(UIView *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     UILabel *l = (UILabel *)cell;
-    l.text = [NSString stringWithFormat:@"Line: (%d, %d)", indexPath.section, indexPath.row];
+    l.text = [NSString stringWithFormat:@"Table %d", indexPath.row];
+    
 }
 
 - (CGFloat)tableView:(EWMultiColumnTableView *)tableView heightForHeaderCellAtIndexPath:(NSIndexPath *)indexPath
@@ -253,54 +263,55 @@
 
 - (CGFloat)tableView:(EWMultiColumnTableView *)tableView heightForSectionHeaderCellAtSection:(NSInteger)section column:(NSInteger)col
 {
-    return 50.0f;
+    return 40.0f;
 }
 
 - (UIView *)tableView:(EWMultiColumnTableView *)tableView headerCellInSectionHeaderForSection:(NSInteger)section
 {
-    UILabel *l = [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [self widthForHeaderCellOfTableView:tableView], 30.0f)] autorelease];
+    UILabel *l = [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, [self widthForHeaderCellOfTableView:tableView], 40.0f)] autorelease];
     l.backgroundColor = [UIColor orangeColor];
     return l;
-
+    
 }
 
 - (void)tableView:(EWMultiColumnTableView *)tableView setContentForHeaderCellInSectionHeader:(UIView *)cell AtSection:(NSInteger)section
 {
     UILabel *l = (UILabel *)cell;
-    l.text = [NSString stringWithFormat:@"Section %d", section];
+    l.text = [NSString stringWithFormat:@"Area %d", section];
+    
 }
 
 - (CGFloat)widthForHeaderCellOfTableView:(EWMultiColumnTableView *)tableView
 {
-    return 200.0f;
+    return 92;
 }
 
 
 - (UIView *)tableView:(EWMultiColumnTableView *)tableView headerCellForColumn:(NSInteger)col
 {
-    UILabel *l =  [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 250.0f, 300.0f)] autorelease];
-    l.text = [NSString stringWithFormat:@"Column: %d", col];
+    UILabel *l =  [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 92, 40.0f)] autorelease];
+    l.text = [NSString stringWithFormat:@"%d:%d0", col/2+5, (col%2*3)];
     l.userInteractionEnabled = YES;
     
     l.tag = col;
-    UITapGestureRecognizer *recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)] autorelease];
-    recognizer.numberOfTapsRequired = 2;
-    [l addGestureRecognizer:recognizer];
-
+//    UITapGestureRecognizer *recognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)] autorelease];
+//    recognizer.numberOfTapsRequired = 1;
+//    [l addGestureRecognizer:recognizer];
+    
     return l;
 }
 
 - (UIView *)topleftHeaderCellOfTableView:(EWMultiColumnTableView *)tableView
 {
-    UILabel *l =  [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 250.0f, [self heightForHeaderCellOfTableView:tableView])] autorelease];
-    l.text = @"Products";
+    UILabel *l =  [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 92, [self heightForHeaderCellOfTableView:tableView])] autorelease];
+    l.text = @"Tables";
     
     return l;
 }
 
 - (CGFloat)heightForHeaderCellOfTableView:(EWMultiColumnTableView *)tableView
 {
-    return 300.0f;
+    return 40.0f;
 }
 
 - (void)tableView:(EWMultiColumnTableView *)tableView swapDataOfColumn:(NSInteger)col1 andColumn:(NSInteger)col2
@@ -318,24 +329,26 @@
     }
 }
 
-- (void)handleDoubleTap:(UITapGestureRecognizer *)recognizer
+- (void)handleTap:(UITapGestureRecognizer *)recognizer
 {
-    int col = [recognizer.view tag];
-    for (NSMutableArray *array in sectionHeaderData) {
-        [array removeObjectAtIndex:col];
-//        [array addObject:@""];
-    }
     
-    for (NSMutableArray *section in data) {
-        for (NSMutableArray *row in section) {
-            [row removeObjectAtIndex:col];
-//            [row addObject:@""];
-        }
-    }
-    
-    numberOfColumns--;
-    
-    [tblView reloadData];
+    NSLog(@"change cell color here");
+//    int col = [recognizer.view tag];
+//    for (NSMutableArray *array in sectionHeaderData) {
+//        [array removeObjectAtIndex:col];
+////        [array addObject:@""];
+//    }
+//    
+//    for (NSMutableArray *section in data) {
+//        for (NSMutableArray *row in section) {
+//            [row removeObjectAtIndex:col];
+////            [row addObject:@""];
+//        }
+//    }
+//    
+//    numberOfColumns--;
+//    
+//    [tblView reloadData];
 
 }
 

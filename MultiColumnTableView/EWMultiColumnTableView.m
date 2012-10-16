@@ -67,6 +67,8 @@
 - (NSMutableArray *)indexPathsOfSection:(NSInteger)section headerRow:(NSInteger)row;
 - (void)swapColumn:(NSInteger)col1 andColumn:(NSInteger)col2;
 
+- (void)handleTap:(UITapGestureRecognizer *)recognizer;
+
 @end
 
 
@@ -133,8 +135,13 @@
         
         UILongPressGestureRecognizer *recognizer = [[[UILongPressGestureRecognizer alloc] 
                                                      initWithTarget:self action:@selector(columnLongPressed:)] autorelease];
+
         recognizer.minimumPressDuration = 1.0;
         [tblView addGestureRecognizer:recognizer];
+        
+        UITapGestureRecognizer *recognizer2 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)] autorelease];
+        recognizer2.numberOfTapsRequired = 1;
+        [tblView addGestureRecognizer:recognizer2];
         
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
@@ -286,6 +293,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == tblView) {
+          
         return [self tblView:tableView cellForRowAtIndexPath:indexPath];
     } else {
         return [self headerTblView:tableView cellForRowAtIndexPath:indexPath];
@@ -868,6 +876,34 @@
                 break;
         }
     }
+    
+}
+
+- (void)handleTap:(UITapGestureRecognizer *)recognizer
+{
+    
+    NSLog(@"i'm here");
+//    if (self.backgroundColor == [UIColor clearColor]) {
+//        self.backgroundColor = [UIColor redColor];
+//    }
+    
+    
+    //    int col = [recognizer.view tag];
+    //    for (NSMutableArray *array in sectionHeaderData) {
+    //        [array removeObjectAtIndex:col];
+    ////        [array addObject:@""];
+    //    }
+    //
+    //    for (NSMutableArray *section in data) {
+    //        for (NSMutableArray *row in section) {
+    //            [row removeObjectAtIndex:col];
+    ////            [row addObject:@""];
+    //        }
+    //    }
+    //
+    //    numberOfColumns--;
+    //    
+    //    [tblView reloadData];
     
 }
 

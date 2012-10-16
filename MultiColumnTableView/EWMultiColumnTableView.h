@@ -55,6 +55,7 @@ typedef enum __EWMultiColumnTableViewColumnPosition {
     BOOL respondsToHeightForTopHeaderCell;
     
     NSInteger selectedColumn;
+    NSInteger selectedRow;
     
     EWMultiColumnTableViewBGScrollView *scrlView;
     UITableView *headerTblView;
