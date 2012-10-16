@@ -23,6 +23,7 @@
 
 #import "MultiColumnTableViewViewController.h"
 #import "NSObject+DelayedBlock.h"
+#import "TableCellLabel.h"
 
 #define ROWS 100
 
@@ -164,7 +165,7 @@
 
 - (UIView *)tableView:(EWMultiColumnTableView *)tableView cellForIndexPath:(NSIndexPath *)indexPath column:(NSInteger)col
 {
-    UILabel *l = [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, colWidth, 40.0f)] autorelease];
+    TableCellLabel *l = [[[TableCellLabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, colWidth, 40.0f)] autorelease];
     l.numberOfLines = 0;
     l.lineBreakMode = UILineBreakModeWordWrap;
     
@@ -173,12 +174,20 @@
 
 
 - (void)tableView:(EWMultiColumnTableView *)tableView setContentForCell:(UIView *)cell indexPath:(NSIndexPath *)indexPath column:(NSInteger)col{
-    UILabel *l = (UILabel *)cell;
+    TableCellLabel *l = (TableCellLabel *)cell;
+    l.row = indexPath.row;
+    l.col = col;
+    l.section = indexPath.section;
     
     NSString *text = [[[data objectAtIndex:indexPath.section] objectAtIndex:indexPath.row] objectAtIndex:col];
-    if ([text isEqualToString:@"1"]) {
-        l.backgroundColor = [UIColor blueColor];
-        NSLog(@"blue");
+    //l.text = text;
+    if ([text isEqualToString:@"orange"]) {
+        l.backgroundColor = [UIColor colorWithRed:94 green:0.43 blue:0.09 alpha:1];
+    }else if ([text isEqualToString:@"blue"]){
+        l.backgroundColor = [UIColor colorWithRed:0.22 green:0.69 blue:0.88 alpha:1];
+    }
+    else{
+        l.backgroundColor = [UIColor clearColor];
     }
     
     CGRect f = l.frame;
@@ -330,19 +339,19 @@
 - (void)handleTap:(UITapGestureRecognizer *)recognizer
 {
     
-    NSLog(@"change cell color here?");
-    UILabel *cell = (UILabel*) recognizer.view;
+    TableCellLabel *l = (TableCellLabel*) recognizer.view;
     
-    if (cell.backgroundColor == [UIColor redColor]) {
-        cell.backgroundColor = [UIColor blueColor];
+    if ([[[[data objectAtIndex:l.section] objectAtIndex:l.row] objectAtIndex:l.col] isEqualToString:@"clear"]) {
+        [[[[data objectAtIndex:l.section] objectAtIndex:l.row] objectAtIndex:l.col] setString:@"orange"];
     }
-    else if (cell.backgroundColor == [UIColor blueColor]){
-        cell.backgroundColor = [UIColor clearColor];
+    else if ([[[[data objectAtIndex:l.section] objectAtIndex:l.row] objectAtIndex:l.col] isEqualToString:@"orange"]){
+        [[[[data objectAtIndex:l.section] objectAtIndex:l.row] objectAtIndex:l.col] setString:@"blue"];
     }
     else{
-        cell.backgroundColor = [UIColor redColor];
+        [[[[data objectAtIndex:l.section] objectAtIndex:l.row] objectAtIndex:l.col] setString:@"clear"];
     }
-    
+//    NSLog([[[data objectAtIndex:l.section] objectAtIndex:l.row] objectAtIndex:l.col]);
+//    NSLog(@"row %d, col %d", l.row, l.col);
 //    int col = [recognizer.view tag];
 //    for (NSMutableArray *array in sectionHeaderData) {
 //        [array removeObjectAtIndex:col];
@@ -358,7 +367,7 @@
 //    
 //    numberOfColumns--;
 //    
-//    [tblView reloadData];
+   [tblView reloadData];
 
 }
 

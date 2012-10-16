@@ -133,15 +133,15 @@
         tblView.backgroundColor = [UIColor clearColor];
         [scrlView addSubview:tblView];
         
-        UILongPressGestureRecognizer *recognizer = [[[UILongPressGestureRecognizer alloc] 
-                                                     initWithTarget:self action:@selector(columnLongPressed:)] autorelease];
-
-        recognizer.minimumPressDuration = 1.0;
-        [tblView addGestureRecognizer:recognizer];
-        
-        UITapGestureRecognizer *recognizer2 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)] autorelease];
-        recognizer2.numberOfTapsRequired = 1;
-        [tblView addGestureRecognizer:recognizer2];
+//        UILongPressGestureRecognizer *recognizer = [[[UILongPressGestureRecognizer alloc] 
+//                                                     initWithTarget:self action:@selector(columnLongPressed:)] autorelease];
+//
+//        recognizer.minimumPressDuration = 1.0;
+//        [tblView addGestureRecognizer:recognizer];
+//        
+//        UITapGestureRecognizer *recognizer2 = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)] autorelease];
+//        recognizer2.numberOfTapsRequired = 1;
+//        [tblView addGestureRecognizer:recognizer2];
         
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserver:self selector:@selector(orientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
@@ -883,13 +883,13 @@
 {
     
 //    NSLog(@"i'm here");
-    if (self.backgroundColor == [UIColor clearColor]) {
-        self.backgroundColor = [UIColor redColor];
-     }
-    else {
-        self.backgroundColor = [UIColor clearColor];
-    }
-   
+//    if (self.backgroundColor == [UIColor clearColor]) {
+//        self.backgroundColor = [UIColor redColor];
+//     }
+//    else {
+//        self.backgroundColor = [UIColor clearColor];
+//    }
+//   
     
     
     //    int col = [recognizer.view tag];

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		459AFE9E14591A2C001AA8B6 /* NSObject+DelayedBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 459AFE9D14591A2C001AA8B6 /* NSObject+DelayedBlock.m */; };
+		8E2C61C4162D41B200D53946 /* TableCellLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E2C61C3162D41B200D53946 /* TableCellLabel.m */; };
 		BB29157A13D6E76000CFA999 /* EWMultiColumnTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB29156E13D6E76000CFA999 /* EWMultiColumnTableView.m */; };
 		BB29157B13D6E76000CFA999 /* EWMultiColumnTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BB29157013D6E76000CFA999 /* EWMultiColumnTableViewCell.m */; };
 		BB29157C13D6E76000CFA999 /* EWMultiColumnTableViewContentBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB29157313D6E76000CFA999 /* EWMultiColumnTableViewContentBackgroundView.m */; };
@@ -29,6 +30,8 @@
 /* Begin PBXFileReference section */
 		459AFE9C14591A2C001AA8B6 /* NSObject+DelayedBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DelayedBlock.h"; sourceTree = "<group>"; };
 		459AFE9D14591A2C001AA8B6 /* NSObject+DelayedBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DelayedBlock.m"; sourceTree = "<group>"; };
+		8E2C61C2162D41B200D53946 /* TableCellLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableCellLabel.h; sourceTree = "<group>"; };
+		8E2C61C3162D41B200D53946 /* TableCellLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableCellLabel.m; sourceTree = "<group>"; };
 		BB29156D13D6E76000CFA999 /* EWMultiColumnTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWMultiColumnTableView.h; sourceTree = "<group>"; };
 		BB29156E13D6E76000CFA999 /* EWMultiColumnTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EWMultiColumnTableView.m; sourceTree = "<group>"; };
 		BB29156F13D6E76000CFA999 /* EWMultiColumnTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EWMultiColumnTableViewCell.h; sourceTree = "<group>"; };
@@ -133,6 +136,8 @@
 				BBF25B2A139F20A800CE773F /* MultiColumnTableViewViewController.h */,
 				BBF25B2B139F20A800CE773F /* MultiColumnTableViewViewController.m */,
 				BBF25B2D139F20A800CE773F /* MultiColumnTableViewViewController.xib */,
+				8E2C61C2162D41B200D53946 /* TableCellLabel.h */,
+				8E2C61C3162D41B200D53946 /* TableCellLabel.m */,
 				BB8C983E13C74ABA00FC2FAC /* MultiColumnTableView */,
 				BBF25B1C139F20A800CE773F /* Supporting Files */,
 			);
@@ -223,6 +228,7 @@
 				BB29157E13D6E76000CFA999 /* EWHeaderHighlightLayer.m in Sources */,
 				BB29157F13D6E76000CFA999 /* UIView+AddLine.m in Sources */,
 				459AFE9E14591A2C001AA8B6 /* NSObject+DelayedBlock.m in Sources */,
+				8E2C61C4162D41B200D53946 /* TableCellLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
