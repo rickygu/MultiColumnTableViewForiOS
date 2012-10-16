@@ -187,7 +187,7 @@
     f.size.width = [self tableView:tableView widthForColumn:col];
     l.frame = f;
     
-    //trying to make a callback when cell is tapped, and change this cell's color
+    //trying to make a callback when cell is tapped, and change this cell's color here?
     l.userInteractionEnabled = YES;
     
     l.tag = col;
@@ -332,7 +332,7 @@
 - (void)handleTap:(UITapGestureRecognizer *)recognizer
 {
     
-    NSLog(@"change cell color here");
+    NSLog(@"change cell color here?");
 //    int col = [recognizer.view tag];
 //    for (NSMutableArray *array in sectionHeaderData) {
 //        [array removeObjectAtIndex:col];

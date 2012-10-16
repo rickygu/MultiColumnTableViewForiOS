@@ -882,10 +882,14 @@
 - (void)handleTap:(UITapGestureRecognizer *)recognizer
 {
     
-    NSLog(@"i'm here");
-//    if (self.backgroundColor == [UIColor clearColor]) {
-//        self.backgroundColor = [UIColor redColor];
-//    }
+//    NSLog(@"i'm here");
+    if (self.backgroundColor == [UIColor clearColor]) {
+        self.backgroundColor = [UIColor redColor];
+     }
+    else {
+        self.backgroundColor = [UIColor clearColor];
+    }
+   
     
     
     //    int col = [recognizer.view tag];
